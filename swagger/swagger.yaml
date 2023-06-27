@@ -1,0 +1,176 @@
+openapi: 3.0.0
+info:
+  title: Minha API
+  description: API para gerenciar pedidos e itens
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+paths:
+  /pedido:
+    get:
+      description: Retorna todos os pedidos
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedido'
+    post:
+      description: Cria um novo pedido
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedidoInput'
+  /pedido/{numero}:
+    get:
+      description: Retorna um pedido pelo número
+      parameters:
+        - in: path
+          name: numero
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+  /pedido/{numero}/item:
+    post:
+      description: Adiciona um item a um pedido
+      parameters:
+        - in: path
+          name: numero
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemPedido'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemPedidoInput'
+  /pedido/{numero}/item/{indice}:
+    get:
+      description: Retorna um item de um pedido pelo número e índice
+      parameters:
+        - in: path
+          name: numero
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: indice
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemPedido'
+  /pedido/{numero}/item:
+    get:
+      description: Retorna todos os itens de um pedido pelo número
+      parameters:
+        - in: path
+          name: numero
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemPedido'
+  /pedido/item:
+    get:
+      description: Retorna todos os itens de um pedido pelo produto
+      parameters:
+        - in: query
+          name: produto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemPedido'
+components:
+  schemas:
+    PedidoInput:
+      type: object
+      properties:
+        numero:
+          type: string
+        cliente:
+          type: string
+    Pedido:
+      type: object
+      properties:
+        id:
+          type: integer
+        numero:
+          type: string
+        cliente:
+          type: string
+    ItemPedidoInput:
+      type: object
+      properties:
+        indice:
+          type: integer
+        SKU:
+          type: string
+        produto:
+          type: string
+        preco:
+          type: number
+        quantidade:
+          type: integer
+    ItemPedido:
+      type: object
+      properties:
+        id:
+          type: integer
+        indice:
+          type: integer
+        SKU:
+          type: string
+        produto:
+          type: string
+        preco:
+          type: number
+        quantidade:
+          type: integer
