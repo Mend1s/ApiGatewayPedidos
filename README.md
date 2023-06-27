@@ -42,9 +42,13 @@ Retorna todos os itens de um pedido pelo produto. O parâmetro `produto` deve se
 ## Executando a API
 
 1. Instale as dependências necessárias:
-  npm install
+   
+    npm install
 
-2. Inicie o servidor:   
+2. Inicie o servidor:
+   
+    npm start
+
 O servidor será iniciado e a API estará disponível em http://localhost:3000/api/v1.
 
 ## Observações
