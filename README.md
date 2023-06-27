@@ -1,4 +1,4 @@
-# Minha API
+# ApiGateway Pedidos
 
 Esta é uma API para gerenciar pedidos e itens.
 
